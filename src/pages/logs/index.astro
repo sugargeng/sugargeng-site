@@ -1,36 +1,21 @@
 ---
-const projects = [
-  {
-    name: 'sugargeng-site',
-    type: 'Personal Site',
-    summary: '基于 Astro、Markdown、GitHub 和 Vercel 搭建的个人公开学习系统。',
-    items: [
-      '记录长期文章、学习日志和项目复盘',
-      '使用 Markdown 管理内容',
-      '通过 Vercel 自动部署',
-    ],
-  },
-  {
-    name: 'AI Application Playground',
-    type: 'AI Engineering',
-    summary: '用于探索 RAG、Tool Calling、Agentic Workflow 和 AI 产品工程化的实验空间。',
-    items: [
-      '关注 AI 能力如何产品化',
-      '记录从 Demo 到可用产品之间的工程问题',
-      '沉淀模型评测、提示词、工具调用和系统设计经验',
-    ],
-  },
-];
+import { getCollection } from 'astro:content';
+
+const logs = await getCollection('logs');
+
+const sortedLogs = logs.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>Projects - sugargeng</title>
+    <title>Logs - sugargeng</title>
     <meta name="viewport" content="width=device-width" />
     <meta
       name="description"
-      content="sugargeng 的项目复盘，记录项目背景、技术取舍、踩坑和后续计划。"
+      content="sugargeng 的学习日志，记录每日学习、问题复盘和阶段性思考。"
     />
   </head>
 
@@ -39,23 +24,32 @@ const projects = [
       <a class="back" href="/">← Home</a>
 
       <section class="hero">
-        <p class="eyebrow">PROJECT REVIEWS</p>
-        <h1>Projects</h1>
+        <p class="eyebrow">DAILY LEARNING LOGS</p>
+        <h1>Logs</h1>
         <p class="desc">
-          这里不只展示项目结果，也记录项目背景、技术取舍、踩坑过程和后续计划。
+          这里不追求文章感，而是记录真实的学习过程：今天做了什么，卡在哪里，
+          哪些地方还没掌握，以及下一步怎么改进。
         </p>
       </section>
 
       <section class="list">
-        {projects.map((project) => (
+        {sortedLogs.map((log) => (
           <article class="card">
-            <p class="type">{project.type}</p>
-            <h2>{project.name}</h2>
-            <p>{project.summary}</p>
+            <time>{log.data.date}</time>
 
-            <ul>
-              {project.items.map((item) => <li>{item}</li>)}
-            </ul>
+            <h2>
+              <a href={`/logs/${log.id.replace(/\.mdx?$/, '')}/`}>
+                {log.data.title}
+              </a>
+            </h2>
+
+            <p>{log.data.summary}</p>
+
+            {log.data.tags.length > 0 && (
+              <div class="tags">
+                {log.data.tags.map((tag) => <span>{tag}</span>)}
+              </div>
+            )}
           </article>
         ))}
       </section>
@@ -136,18 +130,24 @@ const projects = [
     background: rgba(12, 20, 40, 0.72);
   }
 
-  .type {
-    margin: 0 0 14px;
-    color: #9cc9ff;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.22em;
+  time {
+    color: #b9c5dc;
+    font-size: 14px;
   }
 
   h2 {
-    margin: 0 0 14px;
-    font-size: 30px;
+    margin: 14px 0 12px;
+    font-size: 28px;
     letter-spacing: -0.04em;
+  }
+
+  h2 a {
+    color: #f3f6ff;
+    text-decoration: none;
+  }
+
+  h2 a:hover {
+    color: #9cc9ff;
   }
 
   .card p {
@@ -155,10 +155,18 @@ const projects = [
     line-height: 1.85;
   }
 
-  ul {
-    margin: 20px 0 0;
-    padding-left: 22px;
-    color: #dce3f3;
-    line-height: 1.9;
+  .tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+
+  .tags span {
+    border: 1px solid rgba(156, 201, 255, 0.35);
+    color: #9cc9ff;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 13px;
   }
 </style>

@@ -2,43 +2,43 @@
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const logs = await getCollection('logs');
 
-  return posts.map((post) => ({
+  return logs.map((log) => ({
     params: {
-      slug: post.id.replace(/\.mdx?$/, ''),
+      slug: log.id.replace(/\.mdx?$/, ''),
     },
     props: {
-      post,
+      log,
     },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { log } = Astro.props;
+const { Content } = await render(log);
 ---
 
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>{post.data.title} - sugargeng</title>
+    <title>{log.data.title} - sugargeng</title>
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={post.data.summary} />
+    <meta name="description" content={log.data.summary} />
   </head>
 
   <body>
     <main class="page">
-      <a class="back" href="/writing/">← Writing</a>
+      <a class="back" href="/logs/">← Logs</a>
 
       <article>
         <header>
-          <time>{post.data.date}</time>
-          <h1>{post.data.title}</h1>
-          <p>{post.data.summary}</p>
+          <time>{log.data.date}</time>
+          <h1>{log.data.title}</h1>
+          <p>{log.data.summary}</p>
 
-          {post.data.tags.length > 0 && (
+          {log.data.tags.length > 0 && (
             <div class="tags">
-              {post.data.tags.map((tag) => <span>{tag}</span>)}
+              {log.data.tags.map((tag) => <span>{tag}</span>)}
             </div>
           )}
         </header>
