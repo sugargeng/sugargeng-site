@@ -1,46 +1,13 @@
-# Astro Starter Kit: Basics
+#记录范畴
+记录学习的一个过程，当作日志一样写，不整理知识类型笔记
+对阶段性的一个成长进行一个文章总结，比如从0开始速通了一下agents，那就可以把hello-agents这个项目的学习成果总结一下，要输出自己的思考而不是搬运+提炼官方文档
 
-```sh
-npm create astro@latest -- --template basics
-```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
+#使用流程
+1.每次写日志和文章的前后用scripts/下面的脚本先创建好
+2.写完之后 npm run build 构建检查
+3.git持久化并同步到云端
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
